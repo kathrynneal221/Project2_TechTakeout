@@ -5,17 +5,9 @@ const { Restaurant, Menu } = require('../models');
 router.get('/', async (req, res) => {
   try {
     const dbRestaurantData = await Restaurant.findAll({
-      include: [
-        {
-          model: Menu,
-          attributes: ['dish_name', 'dish_description', 'price', 'image_url'],
-        },
-      ],
     });
 
-    const restaurants = dbRestaurantData.map((restaurant) =>
-      restaurant.get({ plain: true })
-    );
+    const restaurants = dbRestaurantData.map((project) => project.get({ plain: true }));
 
     res.render('homepage', {
       restaurants,
