@@ -1,36 +1,21 @@
-<div class="row justify-space-between-md">
-  <div class="login-card">
-    <h2 class="page-title">Login</h2>
-    <form class="form login-form">
-      <div class="form-group">
-        <label for="email-login">Email:</label>
-        <input class="form-input" type="text" id="email-login" />
-      </div>
-      <div class="form-group">
-        <label for="password-login">Password:</label>
-        <input class="form-input" type="password" id="password-login" />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">login</button>
-      </div>
-    </form>
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-header">Login</h3>
+<form id="login-form">
+  <div class="form-group">
+    <label for="exampleInputEmail1" for="username-login">Username</label>
+    <input type="text" class="form-control" id="username-login" autofocus="true" class aria-describedby="username">
   </div>
-  <div class="login-card">
-    <h2 class="page-title">Signup</h2>
-    <form class="form signup-form">
-      <div class="form-group">
-        <label for="email-signup">Email:</label>
-        <input class="form-input" type="text" id="email-signup" />
-      </div>
-      <div class="form-group">
-        <label for="password-signup">Password:</label>
-        <input class="form-input" type="password" id="password-signup" />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">signup</button>
-      </div>
-    </form>
+  <div class="form-group">
+    <label for="password-login">Password</label>
+    <input type="password" class="form-control" autofocus="true" id="password-login">
+  </div>
+  <button type="submit" class="btn btn-primary btn-lg">Login!</button>
+  <hr>
+  <a class="login-link" href="/signup">Sign up instead</a>
+</form>
+
   </div>
 </div>
 
-<script src="./js/login.js"></script>
+<script src="/js/login.js"></script>
