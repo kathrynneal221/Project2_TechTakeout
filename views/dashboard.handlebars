@@ -1,0 +1,19 @@
+
+<br>
+<h3>THESE ARE YOUR PREVIOUS AND CURRENT CART ITEMS:</h3>
+<br>
+
+{{#each carts as |cart|}} 
+<br>
+    <div>
+        <div>
+            <a href="/carts/{{cart.id}}"><h3>Cart No: {{cart.id}}, User: {{cart.user.email}} - 
+                {{cart.datecreated}} - Total Price: ${{cart.total_price}} </h3></a>
+        </div>
+    </div>
+{{/each}} 
+
+<!-- 
+<div class="NewPostDiv"> 
+    <button class="NewPostButton";  type="button" id="btnNewPost">+ New Post</button>     
+</div> --> 
