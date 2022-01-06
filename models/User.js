@@ -44,6 +44,7 @@ User.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
+    //initialAutoIncrement: 2,
     modelName: 'user',
   }
 );
