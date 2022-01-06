@@ -60,24 +60,26 @@ router.post('/login', (req, res) => {
     }
   })
   .then(dbUserData => {
-    if(!dbUserData) {
+    if (!dbUserData) {
       res.status(400).json({ message: 'No user with that email address!' });
       return;
     }
+  
     // Validates password
     const validPassword = dbUserData.checkPassword(req.body.password);
-
-    if(!validPassword) {
-      res.status(400).json({ message: 'Incorrect password! '});
+  
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect password!' });
       return;
     }
-
-    req.session.save(() =>{
+  
+    req.session.save(() => {
+      // Declare session variables
       req.session.user_id = dbUserData.id;
       req.session.email = dbUserData.email;
       req.session.loggedIn = true;
-
-      res.json({ user: dbUserData, message: 'You are now logged in! '});
+  
+      res.json({ user: dbUserData, message: 'You are now logged in!' });
     });
   });
 });
