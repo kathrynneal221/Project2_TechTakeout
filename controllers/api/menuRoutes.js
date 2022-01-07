@@ -6,7 +6,6 @@ router.get('/', async (req, res) => {
   try 
   {
     const dbMenuData = await Menu.findAll({
-
       // Testing if the cart_id value = 0 and restaurant_id = 1
       // Getting the default menu items for the restaurant not 
       // assigned to any cart.

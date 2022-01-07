@@ -19,7 +19,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-
 ////////////////////////////////////////////////////////////////////////////////////////
 // Route to get, display the cart page.
 // This route does a findAll based on the cart_id value. It gets all of the menus records
@@ -111,5 +110,16 @@ router.get('/carts/add/:id', async (req, res) => {
     res.status(500).json(err);      
   }
 });
+
+// Render sign up page
+router.get('/signup', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+   }
+  
+  res.render('signup');
+});
+
 
 module.exports = router;
