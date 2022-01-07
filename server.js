@@ -14,9 +14,14 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Commented out not using file helpers.js in utils directory.
+// Put back code to use file helpers.js in utils directory.
 //const hbs = exphbs.create({ helpers });
 const hbs = exphbs.create({});
+
+hbs.handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
+
 
 const sess = {
   secret: 'Super secret secret',

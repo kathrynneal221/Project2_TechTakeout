@@ -12,6 +12,16 @@ Menu.init(
             autoIncrement: true
         },
 
+        cart_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        
+        category_code: {
+            type: DataTypes.CHAR(1),
+            allowNull: false
+        },
+
         dish_name: {
             type: DataTypes.STRING,
             allowNull: false
