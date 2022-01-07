@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Restaurant, Menu, User, Cart } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Create a new Cart.
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +32,13 @@ router.post('/', async (req, res) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Update a specific Cart.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-router.put('/:id', async (req, res) => {
+router.post('/', async (req, res) => {
+  // Cart.findAll({
+  //   where: {
+  //     id: req.params.id
+  //   }
+  // })
+
   try
   {
     // Calls the update method of the Cart model to update the row data based on the id
@@ -100,24 +107,24 @@ router.delete('/:id', async (req, res) => {
 // Also put back the req.session.user_id value once this is set up.
 ///////////////////////////////////////////////////////////////////////////////////////
 //router.get('/',  withAuth, async (req, res) => {
-router.get('/',  async (req, res) => {  
-  try
-  {
-    // Call the findAll method of the Cart model to get all of the rows from the Cart table that contain a 
-    // match on the user_id value. Include the User model.
-    const cartData = await Cart.findAll({
-      include: [{ model: User }], where: { //user_id: req.session.user_id, } 
-                                           user_id: 1, }
-    });
+// router.get('/',  async (req, res) => {  
+//   try
+//   {
+//     // Call the findAll method of the Cart model to get all of the rows from the Cart table that contain a 
+//     // match on the user_id value. Include the User model.
+//     const cartData = await Cart.findAll({
+//       include: [{ model: User }], where: { //user_id: req.session.user_id, } 
+//                                            user_id: 1, }
+//     });
 
-    const carts = cartData.map((project) => project.get({ plain: true }));
+//     const carts = cartData.map((project) => project.get({ plain: true }));
 
-    res.render('dashboard', {carts});
-  }
-  catch (err)
-  {
-    res.status(500).json(err);
-  }
-});
+//     res.render('dashboard', {carts});
+//   }
+//   catch (err)
+//   {
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = router;

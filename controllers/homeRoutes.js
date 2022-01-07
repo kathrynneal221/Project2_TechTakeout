@@ -1,6 +1,23 @@
 const router = require('express').Router();
 const { Restaurant, Menu, User, Cart } = require('../models');
 
+
+router.get('/login', async (req, res) => {
+  try
+  {
+    res.render('login', {
+      loggedIn: req.session.logged_in,
+      dashboardPage: false,
+      loginPage: true
+    });
+  }
+  catch(err)
+  {
+    res.status(500).json(err);
+  }
+});
+
+
 // GET all restaurants for homepage
 router.get('/', async (req, res) => {
   try {
@@ -18,6 +35,59 @@ router.get('/', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// GET all menus for menu view.
+router.get('/menus', async (req, res) => {
+  try 
+  {
+    const dbMenuData = await Menu.findAll({
+      // Testing if the cart_id value = 0 and restaurant_id = 1
+      // Getting the default menu items for the restaurant not 
+      // assigned to any cart.
+      where: {
+          cart_id: 0,
+          restaurant_id: 1
+      }
+    });
+
+    const menus = dbMenuData.map((project) => project.get({ plain: true }));
+    res.render('menu', {menus});
+  } 
+  catch (err) 
+  {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+////////////////////////////////////////////////////////////////////////////////////////
+// Route to get, display the cart dashboard page.
+// This route does a findAll based on the user_id value. All carts for this user
+// will be displayed on the dashboard page. 
+////////////////////////////////////////////////////////////////////////////////////////
+// Put back verion with the function call "withAuth" after done testing.
+// Also put back the req.session.user_id value once this is set up.
+///////////////////////////////////////////////////////////////////////////////////////
+//router.get('/',  withAuth, async (req, res) => {
+  router.get('/carts',  async (req, res) => {  
+    try
+    {
+      // Call the findAll method of the Cart model to get all of the rows from the Cart table that contain a 
+      // match on the user_id value. Include the User model.
+      const cartData = await Cart.findAll({
+        include: [{ model: User }], where: { user_id: req.session.user_id, } 
+                                            //  user_id: 1, }
+      });
+  
+      const carts = cartData.map((project) => project.get({ plain: true }));
+  
+      res.render('carthistory', {carts});
+    }
+    catch (err)
+    {
+      res.status(500).json(err);
+    }
+  });
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Route to get, display the cart page.
@@ -119,6 +189,16 @@ router.get('/signup', (req, res) => {
    }
   
   res.render('signup');
+});
+
+// Redirect users to homepage after logging in
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('login');
 });
 
 
