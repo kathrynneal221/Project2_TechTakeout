@@ -1,7 +1,7 @@
 const seedRestaurant = require('./restaurant-seeds');
 const seedMenu = require('./menu-seeds');
 const seedCart = require('./cart-seeds');
-const seedUser = require('./user-seeds');
+const seedUsers = require('./user-seeds');
 
 const sequelize = require('../config/connection');
 
