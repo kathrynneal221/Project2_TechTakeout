@@ -1,4 +1,3 @@
-<div class="container-fluid">
-  <h3> Restaurants </h3>
-    <img src= "../public/images/paneralogo.png"></img>
-</div>
+{{#each restaurants as |restaurant|}}
+{{restaurant.restaurant_name}}
+{{/each}}
