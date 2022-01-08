@@ -8,6 +8,7 @@ const cartData = [
         datecreated: new Date().toLocaleDateString(),
         pickup: false,
         delivery: false,
+        system_datecreated: new Date(),
     },
     {
         user_id: 2,
@@ -16,6 +17,7 @@ const cartData = [
         datecreated: new Date().toLocaleDateString(),
         pickup: false,
         delivery: false,
+        system_datecreated: new Date(),        
     },
     {
         user_id: 3,
@@ -24,6 +26,7 @@ const cartData = [
         datecreated: new Date().toLocaleDateString(),
         pickup: false,
         delivery: false,
+        system_datecreated: new Date(),        
     },        
 ];
 
