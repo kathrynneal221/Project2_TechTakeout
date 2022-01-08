@@ -64,7 +64,7 @@ Select a restaurant and you are presented with a menu. To add items from the men
 
 ## Links
 
-Click [here]() to go to my deployed page.
+Click [here](https://tech-takeout.herokuapp.com/) to go to my deployed page.
 
 Pictures of my Site in action:
 Homepage:
