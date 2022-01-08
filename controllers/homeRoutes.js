@@ -105,7 +105,7 @@ router.get('/carts', withAuth, async (req, res) => {
     // Call the findAll method of the Cart model to get all of the rows from the Cart table that contain a 
     // match on the user_id value. Include the User model.
     const cartData = await Cart.findAll({
-      include: [{ model: User }], where: { user_id: req.session.passport.user.id, },
+      include: [{ model: User }], where: { user_id: req.session.passport, },
       order: [['id', 'DESC']],
     }); 
 
@@ -144,7 +144,7 @@ router.get('/carts', withAuth, async (req, res) => {
         // Do a findAll operation for the cart based on the user_id value and the hardwired restaurant id 
         // value of 1, and todays date.
         cartData = await Cart.findAll({
-          include: [{ model: User }], where: { user_id: req.session.passport.user.id, restaurant_id: 1,
+          include: [{ model: User }], where: { user_id: req.session.passport, restaurant_id: 1,
                                                datecreated: szToday} 
         });
 
@@ -155,7 +155,7 @@ router.get('/carts', withAuth, async (req, res) => {
         {
           // Call the create method of the Cart model to add a new row to the Cart table.
           newCart = await Cart.create({
-            user_id: req.session.passport.user.id,
+            user_id: req.session.passport,
             restaurant_id: 1,
             datecreated: new Date().toLocaleDateString(),
             total_price: 0.0,
@@ -431,7 +431,7 @@ router.get('/carts/add/:id', async (req, res) => {
     let dTotalPrice = null;
 
     // Test if we have a user_id value.  
-    if (req.session.passport.user.id !== undefined)
+    if (req.session.passport !== undefined)
     {
       // Get the data for the menu item.  Do this now so can add the price to the cart if a cart is
       // created, otherwise we sum up the price with the current cart and save it.
@@ -450,7 +450,7 @@ router.get('/carts/add/:id', async (req, res) => {
       // Do a findAll operation for the cart based on the user_id value and the hardwired restaurant id 
       // value of 1, and todays date.
       cartData = await Cart.findAll({
-        include: [{ model: User }], where: { user_id: req.session.passport.user.id, restaurant_id: 1,
+        include: [{ model: User }], where: { user_id: req.session.passport, restaurant_id: 1,
                                              datecreated: szToday} 
       });
 
@@ -461,7 +461,7 @@ router.get('/carts/add/:id', async (req, res) => {
       {
         // Call the create method of the Cart model to add a new row to the Cart table.
         newCart = await Cart.create({
-          user_id: req.session.passport.user.id,
+          user_id: req.session.passport,
           restaurant_id: 1,
           datecreated: new Date().toLocaleDateString(),
           total_price: menuData.price,
