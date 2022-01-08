@@ -1,5 +1,10 @@
 const router = require('express').Router();
+// const passport = require('passport');
+// const Strategy = require('passport-local');
+// const crypto = require('crypto');
+
 const { User } = require('../../models');
+
 
 // GET all users
 router.get('/', (req, res) => {
@@ -37,7 +42,7 @@ router.get('/:id', (req, res) => {
 // CREATE new user
 router.post('/', (req, res) => {
   User.create({
-    username: req.body.username,
+    // username: req.body.username,
     email: req.body.email,
     password: req.body.password
   })
@@ -51,6 +56,37 @@ router.post('/', (req, res) => {
     });
   });
 });
+
+// LOGIN for users - passport
+// router.post('login', (req, res) => {
+//   passport.use(new Strategy(function(email, password, cb) {
+//     User.findOne({
+//       where: {
+//         email: req.body.email
+//       }
+//     })
+//     .then(dbUserData => {
+//       if(!dbUserData){
+//         return cb(err);
+//       }
+//       crypto.pbkdf2(password, row.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+//         if(err){
+//           return cb(err);
+//         }
+//         if(!crypto.timingSafeEqual(req.body.password, hashedPassword)){
+//           return cb(null, false, { message: 'Incorrect password!' });
+//         }
+//         req.session.save(() =>{
+//           req.session.user_id = dbUserData.id;
+//           req.session.email = dbUserData.email;
+//           req.session.loggedIn = true;
+
+//           res.json({ user: dbUserData, message: 'You are now logged in!' });
+//         });
+//       });
+//     });
+//   }));
+// });
 
 // LOGIN for users
 router.post('/login', (req, res) => {

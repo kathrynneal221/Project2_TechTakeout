@@ -1,7 +1,9 @@
 const router = require('express').Router();
+// const passport = require('passport');
 const { Restaurant, Menu, User, Cart } = require('../models');
 const withAuth = require('../utils/auth');
 
+// RENDER login page
 router.get('/login', async (req, res) => {
   try
   {
@@ -17,9 +19,34 @@ router.get('/login', async (req, res) => {
   }
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// GET all restaurants for homepage
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// router.post('login/password', passport.authenticate('local',  {
+//   successRedirect: '/',
+//   failureRedirect: '/login',
+//   failureMessage: true
+// }));
+
+// REDIRECT users to homepage after logging in
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('login');
+});
+
+// RENDER sign up page
+router.get('/signup', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+   }
+  
+  res.render('signup');
+});
+
+
+// RENDER all restaurants for homepage
 router.get('/', async (req, res) => {
   try {
     const dbRestaurantData = await Restaurant.findAll({
@@ -37,9 +64,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-// GET all menus for menu view.
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// RENDER menu
 router.get('/menus', async (req, res) => {
   try 
   {
@@ -479,26 +504,5 @@ router.get('/carts/add/:id', async (req, res) => {
     res.status(500).json(err);      
   }
 });
-
-// Render sign up page
-router.get('/signup', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/');
-    return;
-   }
-  
-  res.render('signup');
-});
-
-// Redirect users to homepage after logging in
-router.get('/login', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/');
-    return;
-  }
-
-  res.render('login');
-});
-
 
 module.exports = router;
