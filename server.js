@@ -2,6 +2,9 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
+const passport = require('passport');
+const Strategy = require('passport-local');
+const { User } = require('./models');
 
 const routes = require('./controllers');
 
@@ -10,6 +13,7 @@ const routes = require('./controllers');
 //const helpers = require('./utils/helpers');
 
 const sequelize = require('./config/connection');
+const res = require('express/lib/response');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
@@ -21,6 +25,52 @@ const hbs = exphbs.create({});
 
 hbs.handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
   return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
+
+passport.use(new Strategy(//{usernameField: "email"},
+  function(username, password, cb) {
+  User.findOne({
+    where: {
+      email: username
+    }
+  })
+  .then(dbUserData => {
+    if(!dbUserData){
+      return cb(err);
+    }
+    const validPassword = dbUserData.checkPassword(password)
+    if(!validPassword){
+      return cb(null, false, { message: 'Incorrect password!' });
+    };
+    return cb(null, dbUserData);
+    //crypto.pbkdf2(password, row.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+//      if(err){
+ //       return cb(err);
+ //     }
+//      if(!crypto.timingSafeEqual(req.body.password, hashedPassword)){
+  //      return cb(null, false, { message: 'Incorrect password!' });
+    //  }
+      // req.session.save(() =>{
+      //   req.session.user_id = dbUserData.id;
+      //   req.session.email = dbUserData.email;
+      //   req.session.loggedIn = true;
+
+      //   res.json({ user: dbUserData, message: 'You are now logged in!' });
+      // });
+    });
+//  });
+}));
+
+passport.serializeUser(function(user, cb) {
+  process.nextTick(function() {
+    cb(null, { id: user.id, username: user.email });
+  });
+});
+
+passport.deserializeUser(function(user, cb) {
+  process.nextTick(function() {
+    return cb(null, user);
+  });
 });
 
 
@@ -35,6 +85,7 @@ const sess = {
 };
 
 app.use(session(sess));
+app.use(passport.authenticate('session'));
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');

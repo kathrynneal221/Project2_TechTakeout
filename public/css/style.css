@@ -1,5 +1,5 @@
 :root {
-  --primary: #ccdad1;
+  --primary: #808080;
   --secondary: #dce9d5;
   --tertiary: #788585;
   --light-dark: #a1a0a1;
@@ -98,7 +98,7 @@ p {
 }
 
 .btn-back:hover {
-  color: var(--primary);
+  color: var(--secondary);
   background-color: var(--tertiary);
   transform: translate(0, 0);
   box-shadow: 2px 2px var(--dark);
@@ -154,7 +154,7 @@ p {
 }
 
 .icon-success {
-  color: rgb(29, 153, 255);
+  color: #808080;
 }
 /* CARDS */
 
@@ -165,7 +165,7 @@ p {
 }
 
 .card-header {
-  color: var(--primary);
+  color: var(--secondary);
   background-color: var(--dark);
   padding: 1%;
   border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
@@ -188,6 +188,8 @@ h4 {
 
 .login-link {
   color: var(--dark);
+  font-weight: 500;
+  margin-left: 52rem;
 }
 
 .nav {
