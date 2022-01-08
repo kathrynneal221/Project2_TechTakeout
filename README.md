@@ -45,7 +45,7 @@ npm start
 
 ## Usage
     Select a restaurant and you are presented with a menu. To add items from the menu to your cart, the user must be logged in to the application. After adding items to the cart, the user can return to menu to browse more. Users can login or create an account.
-​
+
 ## Technologies
     express.js
     node.js
@@ -61,11 +61,11 @@ npm start
 ## Challenges
     Understanding new branches, pull requests, merging and resolving conflicts
     Heroku integration
-​
+
 ## Links
-​
+
 Click [here]() to go to my deployed page.
-​
+
 Pictures of my Site in action:
 Homepage:
 ![history page]()
