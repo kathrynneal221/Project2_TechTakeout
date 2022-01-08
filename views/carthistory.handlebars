@@ -1,14 +1,14 @@
 
 <br>
-<h3>THESE ARE YOUR PREVIOUS AND CURRENT CART ITEMS:</h3>
-<br>
+<h3>These Are Your Current And Previous Orders:</h3>
 
 {{#each carts as |cart|}} 
 <br>
     <div>
-        <div>
-            <a href="/carts/{{cart.id}}"><h3>Cart No: {{cart.id}}, User: {{cart.user.email}} - 
-                {{cart.datecreated}} - Total Price: ${{cart.total_price}} </h3></a>
+            <a href="/carts/{{cart.id}}"><h4>Order No: {{cart.id}}</h4></a><br>
+        <div style="margin-top: -35px;">            
+            &nbsp;&nbsp;&nbsp;Date: {{cart.datecreated}}<br>
+            &nbsp;&nbsp;&nbsp;Total Price: ${{cart.total_price}}
         </div>
     </div>
 {{/each}} 

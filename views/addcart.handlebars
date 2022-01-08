@@ -1,11 +1,21 @@
-   <h3>THE FOLLOWING MENU ITEM WAS ADDED TO THE CART</h3>
+{{#if cartExists }}
+   
+   <h3>The Following Menu Item Was Added To The Cart</h3>
+   <a href="/menus">Return To Menu</a>
    
    <div>            
       <br> 
       <h3 style="margin-left: 10px;" id="title_data">{{menuItem.dish_name}}</h3>
    </div>
 
-   <img style="float:left; margin-left: 20px;" src="{{menuItem.image_url}}" alt="{{menuIetm.dish_description}}" width="100px" height="100px"> <br>            
+   <img style="float:left; margin-left: 20px;" src="{{menuItem.image_url}}" alt="{{menuItem.dish_description}}" width="100px" height="100px"> <br>            
    <p style="margin-left: 20px; display: inline;" id="blog_content">{{menuItem.dish_description}}</p><br>
    <p style="margin-left: 20px; display: inline;" id="blog_content">Price: {{menuItem.price}}</p>            
    
+{{else}}
+
+   <h3 style="text-align: center;">The Menu Item Was Not Added To The Cart.</h3>
+   <h6 style="text-align: center;">You Need To Login To Add Menu Items To The Cart.</h6>
+   
+{{/if}}
+

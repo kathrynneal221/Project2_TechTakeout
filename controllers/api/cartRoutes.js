@@ -12,11 +12,11 @@ router.post('/', async (req, res) => {
     // Call the create method of the Cart model to add a new row to the Cart table.
     const newCart = await Cart.create({
       user_id: req.body.user_id,
-      restaurant_id: req.body.restaurant_id,
+      restaurant_id: 1,
       datecreated: new Date().toLocaleDateString(),
-      total_price: req.body.total_price,
-      pickup: req.body.pickup,
-      delivery: req.body.delivery
+      total_price: 0.0,
+      pickup: false,
+      delivery: false
     });
     
     // Return the status of 200 and the success message.
@@ -32,13 +32,7 @@ router.post('/', async (req, res) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Update a specific Cart.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-router.post('/', async (req, res) => {
-  // Cart.findAll({
-  //   where: {
-  //     id: req.params.id
-  //   }
-  // })
-
+router.put('/', async (req, res) => {
   try
   {
     // Calls the update method of the Cart model to update the row data based on the id
@@ -47,8 +41,8 @@ router.post('/', async (req, res) => {
       {
         // All the fields you can update and the data attached to the request body.
         user_id: req.body.user_id,
-        restaurant_id: req.body.restaurant_id,
-        datecreated: new Date().toLocaleDateString(),
+        restaurant_id: 1,
+        datecreated: req.body.datecreated,
         total_price: req.body.total_price,
         pickup: req.body.pickup,
         delivery: req.body.delivery

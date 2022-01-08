@@ -20,6 +20,15 @@ User.hasMany(Cart, {
     foreignKey: 'user_id'
 });
 
+Cart.belongsTo(Restaurant, {
+    foreignKey: 'restaurant_id'
+});
+
+Restaurant.hasMany(Cart, {
+    foreignKey: 'restaurant_id'
+});
+
+
 module.exports = { 
     User,
     Restaurant,

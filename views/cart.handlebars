@@ -1,20 +1,32 @@
 
 
-<div style="text-align: center"><h2> CART MENU ITEMS - : Cart No: {{cartItem.id}}, User: {{cartItem.user.email}} - 
-            {{cartItem.datecreated}} - Total Price: ${{cartItem.total_price}}</h2></div>
-<br><br>
-<h3>THESE ARE THE MENU ITEM CURRENTLY IN YOUR CART:</h3>
-<br><br>
-{{#each menus as |menu|}}
-  <div>
-    <div>
-      <br> 
-      <h3 style="margin-left: 10px;" id="title_data">{{menu.dish_name}}</h3>
-    </div>
+<div style="text-align: center"><h3> Cart Menu Items: Order No: {{cartItem.id}}
+  - Date: {{cartItem.datecreated}} - Total Price: ${{cartItem.total_price}}</h3></div>
+<br>
 
-    <img style="float:left; margin-left: 20px;" src="{{image_url}}" alt="{{menu.dish_description}}" width="100px" height="100px"> <br>            
-    <p style="margin-left: 20px; display: inline;" id="blog_content">{{menu.dish_description}}</p><br>
-    <p style="margin-left: 20px; display: inline;" id="blog_content">Price: {{menu.price}}</p><br><br><br>
-  </div>
-{{/each}}
+{{#if menusExist}}
+  <h4>These Are The Menu Items Currently In Your Cart:</h4>
+{{else}}  
+  <h4>These Are No Menu Items Currently In Your Cart:</h4>
+{{/if}}
+
+<a href="/menus">Return To Menu</a>
+
+{{#if menusExist}}
+
+  {{#each menus as |menu|}}
+    <div>
+      <div>
+        <br> 
+        <h3 style="margin-left: 10px;" id="title_data">{{menu.dish_name}}</h3>
+      </div>
+
+      <img style="float:left; margin-left: 20px;" src="{{menu.image_url}}" alt="{{menu.dish_description}}" width="100px" height="100px"> <br>            
+      <p style="margin-left: 20px; display: inline;" id="blog_content">{{menu.dish_description}}</p><br>
+      <p style="margin-left: 20px; display: inline;" id="blog_content">Price: {{menu.price}}</p>
+      <a style="margin-left: 20px;" href="/carts/del/{{menu.id}}/{{menu.cart_id}}">Remove From Cart</a><br><br><br>
+    </div>
+  {{/each}}
+
+{{/if}}
 
