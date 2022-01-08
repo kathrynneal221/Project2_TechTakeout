@@ -68,10 +68,12 @@ Click [here](https://tech-takeout.herokuapp.com/) to go to my deployed page.
 
 Pictures of my Site in action:
 Homepage:
-![history page]()
+![Screenshot1](./assets/img/Screenshot1.png)
 Menu:
-![menu]()
+![Screenshot1](./assets/img/Screenshot1.png)
 Cart:
-![cart]()
+![Screenshot1](./assets/img/Screenshot1.png)
+Cart History:
+![Screenshot1](./assets/img/Screenshot1.png)
 Login/Signup:
-![login]()
+![Screenshot1](./assets/img/Screenshot1.png)
