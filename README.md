@@ -70,10 +70,10 @@ Pictures of my Site in action:
 Homepage:
 ![Screenshot1](./assets/img/Screenshot1.png)
 Menu:
-![Screenshot1](./assets/img/Screenshot1.png)
+![Screenshot3](./assets/img/Screenshot3.png)
 Cart:
-![Screenshot1](./assets/img/Screenshot1.png)
+![Screenshot4](./assets/img/Screenshot4.png)
 Cart History:
-![Screenshot1](./assets/img/Screenshot1.png)
+![Screenshot5](./assets/img/Screenshot5.png)
 Login/Signup:
-![Screenshot1](./assets/img/Screenshot1.png)
+![Screenshot2](./assets/img/Screenshot2.png)
