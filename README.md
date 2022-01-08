@@ -47,16 +47,17 @@ npm start
 Select a restaurant and you are presented with a menu. To add items from the menu to your cart, the user must be logged in to the application. After adding items to the cart, the user can return to menu to browse more. Users can login or create an account.
 
 ## Technologies
-    express.js
-    node.js
-    passport.js
-    sequelize
-    mysql2
-    bcrypt
-    .env
-    express-handlebars
-    express-session
-    connect-session_sequelize
+* express.js
+* node.js
+* passport.js
+* passport-local.js
+* sequelize
+* mysql2
+* bcrypt
+* .env
+* express-handlebars
+* express-session
+* connect-session_sequelize
     
 ## Challenges
   * Understanding new branches, pull requests, merging and resolving conflicts
