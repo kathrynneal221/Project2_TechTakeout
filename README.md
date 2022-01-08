@@ -4,12 +4,12 @@
 This application is an order online, take out application that shows the user a list of available restaurants, their menus, allows them to add to cart and remove items from cart
 
 ## Table of Contents
-*[Installation](#installation)
-*[Usage](#usage)
-*[Functionality](#functionality)
-*[Technologies](#technologies)
-*[Challenges](#challenges)
-*[Links](#links)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Functionality](#functionality)
+* [Technologies](#technologies)
+* [Challenges](#challenges)
+* [Links](#links)
 
 ## Installation
 After cloning the reposititory, a user would start their MySQL database and create the schema by running the following:
