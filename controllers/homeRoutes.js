@@ -1,5 +1,5 @@
 const router = require('express').Router();
-// const passport = require('passport');
+const passport = require('passport');
 const { Restaurant, Menu, User, Cart } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -8,7 +8,7 @@ router.get('/login', async (req, res) => {
   try
   {
     res.render('login', {
-      loggedIn: req.session.logged_in,
+      loggedIn: !!req.session.passport,
       dashboardPage: false,
       loginPage: true
     });
@@ -19,15 +19,9 @@ router.get('/login', async (req, res) => {
   }
 });
 
-// router.post('login/password', passport.authenticate('local',  {
-//   successRedirect: '/',
-//   failureRedirect: '/login',
-//   failureMessage: true
-// }));
-
 // REDIRECT users to homepage after logging in
 router.get('/login', (req, res) => {
-  if (req.session.loggedIn) {
+  if (!!req.session.passport) {
     res.redirect('/');
     return;
   }
@@ -37,7 +31,7 @@ router.get('/login', (req, res) => {
 
 // RENDER sign up page
 router.get('/signup', (req, res) => {
-  if (req.session.loggedIn) {
+  if (!!req.session.passport) {
     res.redirect('/');
     return;
    }
@@ -56,8 +50,9 @@ router.get('/', async (req, res) => {
 
     res.render('homepage', {
       restaurants,
-      loggedIn: req.session.loggedIn,
-    });
+      loggedIn: !!req.session.passport
+
+});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -86,7 +81,11 @@ router.get('/menus', async (req, res) => {
     });
 
     const menus = dbMenuData.map((project) => project.get({ plain: true }));
-    res.render('menu', {menus, restaurantItem});
+    res.render('menu', {
+      menus, 
+      restaurantItem,
+      loggedIn: !!req.session.passport
+    });
   } 
   catch (err) 
   {
@@ -106,12 +105,15 @@ router.get('/carts', withAuth, async (req, res) => {
     // Call the findAll method of the Cart model to get all of the rows from the Cart table that contain a 
     // match on the user_id value. Include the User model.
     const cartData = await Cart.findAll({
-      include: [{ model: User }], where: { user_id: req.session.user_id, },
+      include: [{ model: User }], where: { user_id: req.session.passport.user.id, },
       order: [['id', 'DESC']],
     }); 
 
     const carts = cartData.map((project) => project.get({ plain: true }));
-    res.render('carthistory', {carts});
+    res.render('carthistory', {
+      carts,
+      loggedIn: !!req.session.passport
+    });
   }
   catch (err)
   {
@@ -142,7 +144,7 @@ router.get('/carts', withAuth, async (req, res) => {
         // Do a findAll operation for the cart based on the user_id value and the hardwired restaurant id 
         // value of 1, and todays date.
         cartData = await Cart.findAll({
-          include: [{ model: User }], where: { user_id: req.session.user_id, restaurant_id: 1,
+          include: [{ model: User }], where: { user_id: req.session.passport.user.id, restaurant_id: 1,
                                                datecreated: szToday} 
         });
 
@@ -153,7 +155,7 @@ router.get('/carts', withAuth, async (req, res) => {
         {
           // Call the create method of the Cart model to add a new row to the Cart table.
           newCart = await Cart.create({
-            user_id: req.session.user_id,
+            user_id: req.session.passport.user.id,
             restaurant_id: 1,
             datecreated: new Date().toLocaleDateString(),
             total_price: 0.0,
@@ -190,12 +192,19 @@ router.get('/carts', withAuth, async (req, res) => {
       {
         if (menus.length == 0)
         {
-          res.render('cart', {menusExist: false,});
+          res.render('cart', {
+            menusExist: false,
+            loggedIn: !!req.session.passport
+          });
         }
         else
         {
           // Render the cart view with just the menu items.
-          res.render('cart', {menus, menusExist: true,});
+          res.render('cart', {
+            menus, 
+            menusExist: true,
+            loggedIn: !!req.session.passport
+          });
         }
       }
       else
@@ -206,12 +215,20 @@ router.get('/carts', withAuth, async (req, res) => {
         if (menus.length == 0)
         {
           // Render the cart view with both the cart and all the menu items.
-          res.render('cart', {cartItem, menusExist: false});
+          res.render('cart', {
+            cartItem, 
+            menusExist: false,
+            loggedIn: !!req.session.passport
+          });
         }
         else
         {
           // Render the cart view with both the cart and all the menu items.
-          res.render('cart', {menus, cartItem, menusExist: true});
+          res.render('cart', {menus, 
+            cartItem, 
+            menusExist: true,
+            loggedIn: !!req.session.passport
+          });
         }
       }
     }
@@ -292,13 +309,20 @@ router.get('/carts', withAuth, async (req, res) => {
         // to the veiw.
         if (menus.length == 0)
         {
-          res.render('cart', {menusExist: false,});          
+          res.render('cart', {
+            menusExist: false,
+            loggedIn: !!req.session.passport
+          });          
         }
         // otherwise just send the menu data model.
         else
         {
           // Render the cart view with just the menu items.
-          res.render('cart', {menus, menusExist: true,});
+          res.render('cart', {
+            menus, 
+            menusExist: true,
+            loggedIn: !!req.session.passport
+          });
         }
       }
       else
@@ -360,13 +384,22 @@ router.get('/carts', withAuth, async (req, res) => {
         if (menus.length == 0)
         {
           // Render the cart view with both the cart and all the menu items.
-          res.render('cart', {cartItem, menusExist: false,});
+          res.render('cart', {
+            cartItem, 
+            menusExist: false,
+            loggedIn: !!req.session.passport
+          });
         }
         // Else we have menu items so include them also.
         else
         {
           // Render the cart view with both the cart and all the menu items.
-          res.render('cart', {menus, cartItem, menusExist: true,});
+          res.render('cart', {
+            menus, 
+            cartItem, 
+            menusExist: true,
+            loggedIn: !!req.session.passport
+          });
         }
       }
     }
@@ -398,7 +431,7 @@ router.get('/carts/add/:id', async (req, res) => {
     let dTotalPrice = null;
 
     // Test if we have a user_id value.  
-    if (req.session.user_id !== undefined)
+    if (req.session.passport.user.id !== undefined)
     {
       // Get the data for the menu item.  Do this now so can add the price to the cart if a cart is
       // created, otherwise we sum up the price with the current cart and save it.
@@ -417,7 +450,7 @@ router.get('/carts/add/:id', async (req, res) => {
       // Do a findAll operation for the cart based on the user_id value and the hardwired restaurant id 
       // value of 1, and todays date.
       cartData = await Cart.findAll({
-        include: [{ model: User }], where: { user_id: req.session.user_id, restaurant_id: 1,
+        include: [{ model: User }], where: { user_id: req.session.passport.user.id, restaurant_id: 1,
                                              datecreated: szToday} 
       });
 
@@ -428,7 +461,7 @@ router.get('/carts/add/:id', async (req, res) => {
       {
         // Call the create method of the Cart model to add a new row to the Cart table.
         newCart = await Cart.create({
-          user_id: req.session.user_id,
+          user_id: req.session.passport.user.id,
           restaurant_id: 1,
           datecreated: new Date().toLocaleDateString(),
           total_price: menuData.price,
@@ -490,13 +523,20 @@ router.get('/carts/add/:id', async (req, res) => {
       });
 
       // Render to addcart handlebars view.  Pass in the menu item and cart exists value.
-      res.render('addcart', {menuItem, cartExists: bCartExists, });  
+      res.render('addcart', {
+        menuItem, 
+        cartExists: bCartExists, 
+        loggedIn: !!req.session.passport
+      });  
     }
     // The cart does not exist, so just render the addcart view, and only pass in the cart exists
     // value so for this case user told the menu item could not be added and they need to login.
     else
     {
-      res.render('addcart', {cartExists: bCartExists, });  
+      res.render('addcart', {
+        cartExists: bCartExists, 
+        loggedIn: !!req.session.passport
+      });  
     }    
   }
   catch (err)

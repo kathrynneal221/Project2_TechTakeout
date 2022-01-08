@@ -1,5 +1,5 @@
 const router = require('express').Router();
-// const passport = require('passport');
+const passport = require('passport');
 // const Strategy = require('passport-local');
 // const crypto = require('crypto');
 
@@ -58,7 +58,14 @@ router.post('/', (req, res) => {
 });
 
 // LOGIN for users - passport
-// router.post('login', (req, res) => {
+router.post('/login', passport.authenticate('local',  {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureMessage: true
+}));
+//router.post('login', (req, res) => {
+
+//});
 //   passport.use(new Strategy(function(email, password, cb) {
 //     User.findOne({
 //       where: {
@@ -89,40 +96,40 @@ router.post('/', (req, res) => {
 // });
 
 // LOGIN for users
-router.post('/login', (req, res) => {
-  User.findOne({
-    where: {
-      email: req.body.email
-    }
-  })
-  .then(dbUserData => {
-    if (!dbUserData) {
-      res.status(400).json({ message: 'No user with that email address!' });
-      return;
-    }
+// router.post('/login', (req, res) => {
+//   User.findOne({
+//     where: {
+//       email: req.body.email
+//     }
+//   })
+//   .then(dbUserData => {
+//     if (!dbUserData) {
+//       res.status(400).json({ message: 'No user with that email address!' });
+//       return;
+//     }
   
-    // Validates password
-    const validPassword = dbUserData.checkPassword(req.body.password);
+//     // Validates password
+//     const validPassword = dbUserData.checkPassword(req.body.password);
   
-    if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect password!' });
-      return;
-    }
+//     if (!validPassword) {
+//       res.status(400).json({ message: 'Incorrect password!' });
+//       return;
+//     }
   
-    req.session.save(() => {
-      // Declare session variables
-      req.session.user_id = dbUserData.id;
-      req.session.email = dbUserData.email;
-      req.session.loggedIn = true;
+//     req.session.save(() => {
+//       // Declare session variables
+//       req.session.user_id = dbUserData.id;
+//       req.session.email = dbUserData.email;
+//       req.session.loggedIn = true;
   
-      res.json({ user: dbUserData, message: 'You are now logged in!' });
-    });
-  });
-});
+//       res.json({ user: dbUserData, message: 'You are now logged in!' });
+//     });
+//   });
+// });
 
 // LOGOUT
 router.post('/logout', (req, res) => {
-  if (req.session.loggedIn) {
+  if (!!req.session.passport) {
     req.session.destroy(() => {
     res.status(204).end();
     });

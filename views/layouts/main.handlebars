@@ -22,18 +22,17 @@
         <li class="nav-item">
           <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
         </li>
-
-                <li class="nav-item">
+        {{#if loggedIn}}
+        <li class="nav-item">
           <a class="nav-link" href="/carts/0">Cart</a>
         </li>
-
-               <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="/carts">Cart History</a>
         </li>
+        {{/if}}
         <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
         </li>
-        {{/if}}
       </ul>
     </div>
     {{#if loggedIn}}
