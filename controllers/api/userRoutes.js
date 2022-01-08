@@ -1,7 +1,5 @@
 const router = require('express').Router();
 const passport = require('passport');
-// const Strategy = require('passport-local');
-// const crypto = require('crypto');
 
 const { User } = require('../../models');
 

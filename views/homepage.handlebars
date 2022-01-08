@@ -1,5 +1,7 @@
-<h3>Restaurant List:</h3>
+<h2 class="text-center">Restaurant List:</h2>
 {{#each restaurants as |restaurant|}}
-{{restaurant.restaurant_name}} <br>
-<a href="/menus"><img src="../images/paneralogo.png" width="200px" height="200px"></a>
+
+<div class="d-flex justify-content-around">
+<a href="/menus"><img src="../images/paneralogo.png" width="350px" height="350px"></a> <img src="../images/chipotle.png" width="350px" height="350px"></img> <img src="../images/bertuccis.png" width="350px" height="350px"></img>
+</div>
 {{/each}}
