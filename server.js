@@ -43,22 +43,7 @@ passport.use(new Strategy(//{usernameField: "email"},
       return cb(null, false, { message: 'Incorrect password!' });
     };
     return cb(null, dbUserData);
-    //crypto.pbkdf2(password, row.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
-//      if(err){
- //       return cb(err);
- //     }
-//      if(!crypto.timingSafeEqual(req.body.password, hashedPassword)){
-  //      return cb(null, false, { message: 'Incorrect password!' });
-    //  }
-      // req.session.save(() =>{
-      //   req.session.user_id = dbUserData.id;
-      //   req.session.email = dbUserData.email;
-      //   req.session.loggedIn = true;
-
-      //   res.json({ user: dbUserData, message: 'You are now logged in!' });
-      // });
     });
-//  });
 }));
 
 passport.serializeUser(function(user, cb) {

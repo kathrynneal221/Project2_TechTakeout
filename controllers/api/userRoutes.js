@@ -61,69 +61,7 @@ router.post('/login', passport.authenticate('local',  {
   failureRedirect: '/login',
   failureMessage: true
 }));
-//router.post('login', (req, res) => {
 
-//});
-//   passport.use(new Strategy(function(email, password, cb) {
-//     User.findOne({
-//       where: {
-//         email: req.body.email
-//       }
-//     })
-//     .then(dbUserData => {
-//       if(!dbUserData){
-//         return cb(err);
-//       }
-//       crypto.pbkdf2(password, row.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
-//         if(err){
-//           return cb(err);
-//         }
-//         if(!crypto.timingSafeEqual(req.body.password, hashedPassword)){
-//           return cb(null, false, { message: 'Incorrect password!' });
-//         }
-//         req.session.save(() =>{
-//           req.session.user_id = dbUserData.id;
-//           req.session.email = dbUserData.email;
-//           req.session.loggedIn = true;
-
-//           res.json({ user: dbUserData, message: 'You are now logged in!' });
-//         });
-//       });
-//     });
-//   }));
-// });
-
-// LOGIN for users
-// router.post('/login', (req, res) => {
-//   User.findOne({
-//     where: {
-//       email: req.body.email
-//     }
-//   })
-//   .then(dbUserData => {
-//     if (!dbUserData) {
-//       res.status(400).json({ message: 'No user with that email address!' });
-//       return;
-//     }
-  
-//     // Validates password
-//     const validPassword = dbUserData.checkPassword(req.body.password);
-  
-//     if (!validPassword) {
-//       res.status(400).json({ message: 'Incorrect password!' });
-//       return;
-//     }
-  
-//     req.session.save(() => {
-//       // Declare session variables
-//       req.session.user_id = dbUserData.id;
-//       req.session.email = dbUserData.email;
-//       req.session.loggedIn = true;
-  
-//       res.json({ user: dbUserData, message: 'You are now logged in!' });
-//     });
-//   });
-// });
 
 // LOGOUT
 router.post('/logout', (req, res) => {
