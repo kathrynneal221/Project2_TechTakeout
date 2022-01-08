@@ -59,8 +59,8 @@ Select a restaurant and you are presented with a menu. To add items from the men
     connect-session_sequelize
     
 ## Challenges
-    Understanding new branches, pull requests, merging and resolving conflicts
-    Heroku integration
+  * Understanding new branches, pull requests, merging and resolving conflicts
+  * Heroku integration
 
 ## Links
 
