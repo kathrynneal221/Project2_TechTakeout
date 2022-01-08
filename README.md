@@ -44,7 +44,7 @@ npm start
     Then you see a message saying what was added, and are presented with a link to return to menu.
 
 ## Usage
-    Select a restaurant and you are presented with a menu. To add items from the menu to your cart, the user must be logged in to the application. After adding items to the cart, the user can return to menu to browse more. Users can login or create an account.
+Select a restaurant and you are presented with a menu. To add items from the menu to your cart, the user must be logged in to the application. After adding items to the cart, the user can return to menu to browse more. Users can login or create an account.
 
 ## Technologies
     express.js
