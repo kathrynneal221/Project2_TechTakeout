@@ -7,11 +7,18 @@ async function loginFormHandler(event) {
   if (email && password) {
     const response = await fetch('/api/users/login', {
       method: 'post',
-      body: JSON.stringify({
-        username: email,
-        password
-      }),
-      headers: { 'Content-Type': 'application/json' }
+      body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
+
+    if (response.ok) {
+      document.location.replace('/');
+    } else {
+      alert(response.statusText);
+    }
   }
 }
+
+document.querySelector('#login-form').addEventListener('submit', loginFormHandler);
