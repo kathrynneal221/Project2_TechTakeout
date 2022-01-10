@@ -409,7 +409,7 @@ router.get('/carts', withAuth, async (req, res) => {
 // This route will get the menu item and create a new one with it cart id value set to the id value of
 // the current cart for the user.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-router.get('/carts/add/:id', async (req, res) => {  
+router.get('/carts/add/:id', withAuth, async (req, res) => {  
   try
   {
     let bCartExists = false;
